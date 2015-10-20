@@ -1,0 +1,76 @@
+---
+title: "Visualizing Sociology: Week 1"
+author: Friedolin Merhout
+output: pdf_document
+geometry:
+date: October 11, 2015
+---
+
+**Homework**
+
+> 1. Create an RMarkdown file for your work
+
+*Done.*
+
+> 2. Look again at the data
+
+``` {r, echo=FALSE}
+#install and load necessary packages
+#install.packages("devtools")
+library(devtools)
+library(ggplot2)
+
+# Let's get the data for the homework
+gapminder.url <- "https://raw.githubusercontent.com/socviz/soc880/master/data/gapminder.csv"
+
+# create data frame
+data <- read.csv(url(gapminder.url))
+
+# look at first rows of the data
+head(data)
+
+```
+
+
+> 3. Put lifeExp on the x-axis and gdpPercap on the y-axis
+
+``` {r, echo=FALSE}
+# create object with our plot data
+p <- ggplot(data,
+            aes(x = lifeExp,
+                y = gdpPercap))
+
+# print this object as scatterplot
+p + geom_point() + theme_minimal() +
+  ggtitle("Life Expectancy by GDP per Capita") + xlab("") + ylab("")
+```
+
+> 4. Plot pop on the x-axis and gdpPercap on the y-axis
+
+``` {r, echo=FALSE}
+# create object with our plot data
+p <- ggplot(data,
+            aes(x = pop,
+                y = gdpPercap))
+
+# print this object as scatterplot
+p + geom_smooth(method="gam", formula=y ~ s(x, bs = "cs")) + geom_point() + 
+  theme_minimal() + ggtitle("GDP per Capita \n by Population") + xlab("") + ylab("")
+```
+
+
+> 5. Plot year on the x-axis and any continuous variable on the y-axis
+
+``` {r, echo=FALSE}
+# create object with our plot data
+p <- ggplot(data,
+            aes(x = year,
+                y = pop))
+
+# print this object as scatterplot
+p + geom_smooth(method="gam", formula=y ~ s(x, bs = "cs")) + theme_minimal() +
+  ggtitle("Population by Year") + xlab("") + ylab("")
+```
+
+
+
